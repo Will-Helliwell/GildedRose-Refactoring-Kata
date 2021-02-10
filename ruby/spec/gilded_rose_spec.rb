@@ -27,6 +27,28 @@ describe GildedRose do
       end
     end
 
+    context "given Aged Brie" do
+      items = [Item.new("Aged Brie", 25, 25)]
+      items << Item.new("Aged Brie", 9, 0)
+      items << Item.new("Aged Brie", 0, 49)
+      guilded_rose = GildedRose.new(items)
+      guilded_rose.update_quality()
+      it "reduces the sell_in by 1 at all times" do
+        expect(items[0].sell_in).to eq(24)
+        expect(items[1].sell_in).to eq(8)
+        expect(items[2].sell_in).to eq(-1)
+      end
+      it "increases the quality by 1 when quality < 50" do
+        expect(items[0].quality).to eq(26)
+        expect(items[1].quality).to eq(1)
+        expect(items[2].quality).to eq(50)
+      end
+      it "does not increase the quality above 50" do
+        100.times{guilded_rose.update_quality()}
+        expect(items[2].quality).to eq(50)
+      end
+    end
+
   end
 
 end

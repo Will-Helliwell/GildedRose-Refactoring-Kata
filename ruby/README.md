@@ -25,17 +25,32 @@ Item class:
 *both of the above are amended at the end of each day by calling the update_quality method on an instance of GildedRose*
 - @name
 
-####Items available:
+####Items available and Existing Behaviour:
+
+Below I describe the existing behaviour of the item types at the point at which the code was handed over. This occasionally differs from the specification, in which case I have made a note.
+
+I prioritize preserving existing behaviour over the spec, given that the code has been used satisfactorily up until now.
 
 **"Sulfuras, Hand of Ragnaros"**
 - sell_in - never has to be sold -> nil would make sense but code throws error unless argument is an integer. For now: give as any arbitrary integer which must never change.
 - quality - never changes
 
 **"Aged Brie"**
--
+- Appears to be a typo in the instructions - existing code does not assume that "Aged Brie" is a backstage pass. Instead it behaves as below:
+- sell_in - reduces by 1 at all times
+- quality:
+  - increases by 1 when quality < 50
+  - does not increase above 50
+
 **"Backstage passes to a TAFKAL80ETC concert"**
 
 **Any other item name (string)**
 - ?
 
 ### New Feature Required
+
+### Other Functionality to Add
+
+**Item class**
+- Does not allow items to be initialized with quality > 50 (as per specification)
+- Does not allow items to be initialized with quality < 0 (as per specification)

@@ -5,3 +5,4 @@ sulfuras = Item.new("Sulfuras, Hand of Ragnaros", 100, 25)
 items = [brie, pass, sulfuras]
 
 gr = GildedRose.new(items)
+gr = GildedRose.new([brie])
