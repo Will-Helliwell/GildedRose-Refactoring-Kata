@@ -43,6 +43,13 @@ I prioritize preserving existing behaviour over the spec, given that the code ha
   - does not increase above 50
 
 **"Backstage passes to a TAFKAL80ETC concert"**
+- sell_in - reduces by 1 at all times
+- Affect of update_quality on Item.quality:
+  - increases by 1 when there are more than 10 days left to sell
+  - increases by 2 when there are 6-10 days left to sell inclusive
+  - increases by 3 when there are 1-5 days left to sell inclusive
+  - reduces to zero if there are zero or fewer days left to sell
+  - cannot be greater than 50
 
 **Any other item name (string)**
 - ?
