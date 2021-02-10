@@ -52,7 +52,11 @@ I prioritize preserving existing behaviour over the spec, given that the code ha
   - cannot be greater than 50
 
 **Any other item name (string)**
-- ?
+- sell_in - reduces by 1 at all times
+- Affect of update_quality on Item.quality:
+  - it never drops below zero
+  - it decreases by 1 when it there are 1 or more days left to sell (and quality > 0)
+  - it decreases by 2 when sell_in has reached zero or below (and quality > 0)
 
 ### New Feature Required
 

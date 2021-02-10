@@ -110,11 +110,11 @@ describe GildedRose do
         expect(items[0].quality).to eq(0)
         expect(items[1].quality).to eq(0)
       end
-      it "reduces the quality by 1 when quality > 0 && sell_in > 0" do
+      it "reduces the quality by 1 when there are 1 or more days left to sell (and quality > 0)" do
         expect(items[2].quality).to eq(0)
         expect(items[3].quality).to eq(49)
       end
-      it "reduces the quality by 2 when quality > 0 && sell_in <= 0" do
+      it "reduces the quality by 2 when sell_in has reached zero or below (and quality > 0)" do
         expect(items[4].quality).to eq(8)
         expect(items[5].quality).to eq(8)
       end
