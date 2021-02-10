@@ -13,10 +13,12 @@ describe GildedRose do
     end
 
     context "given Sulfuras, Hand of Ragnaros" do
-      items = [Item.new("Sulfuras, Hand of Ragnaros", 100, 50)]
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 100, 50), Item.new("Sulfuras, Hand of Ragnaros", 0, 50), Item.new("Sulfuras, Hand of Ragnaros", 10, 50)]
       GildedRose.new(items).update_quality()
       it "does not change the sell_in" do
         expect(items[0].sell_in).to eq(100)
+        expect(items[1].sell_in).to eq(0)
+        expect(items[2].sell_in).to eq(10)
       end
     end
 
