@@ -54,3 +54,4 @@ I prioritize preserving existing behaviour over the spec, given that the code ha
 **Item class**
 - Does not allow items to be initialized with quality > 50 (as per specification)
 - Does not allow items to be initialized with quality < 0 (as per specification)
+- Valid items defined in a set list - does not allow non-existent items (e.g. "unicorn hair") to be added.

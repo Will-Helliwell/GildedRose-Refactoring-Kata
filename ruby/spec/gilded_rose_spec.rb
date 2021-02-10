@@ -53,6 +53,51 @@ describe GildedRose do
       end
     end
 
+    context "given 'Backstage passes to a TAFKAL80ETC concert'" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 25)] # index 0
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 6, 25) # index 1
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 25) # index 2
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 25) # index 3
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 25) # index 4
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 25) # index 5
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 25, 25) # index 6
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 100, 25) # index 7
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 50, 50) # index 8
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 6, 50) # index 9
+      items << Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 50) # index 10
+      guilded_rose = GildedRose.new(items)
+      guilded_rose.update_quality()
+      it "increases the quality by 1 if sell_in is already > 10" do
+        expect(items[5].quality).to eq(26)
+        expect(items[6].quality).to eq(26)
+        expect(items[7].quality).to eq(26)
+      end
+      it "does not increase the quality above 50" do
+        expect(items[8].quality).to eq(50)
+        expect(items[9].quality).to eq(50)
+        expect(items[10].quality).to eq(50)
+      end
+      it "increases the quality by 2 when 6 <= sell_in <= 10" do
+        expect(items[0].quality).to eq(27)
+        expect(items[1].quality).to eq(27)
+      end
+      it "increases the quality by 3 when 1 <= sell_in <= 5" do
+        expect(items[2].quality).to eq(28)
+        expect(items[3].quality).to eq(28)
+      end
+      it "drops the quality to zero when sell_in is already zero" do
+        expect(items[4].quality).to eq(0)
+      end
+      it "reduces the sell_in by 1 at all times" do
+        expect(items[0].sell_in).to eq(9)
+        expect(items[1].sell_in).to eq(5)
+        expect(items[2].sell_in).to eq(4)
+        expect(items[3].sell_in).to eq(0)
+        expect(items[4].sell_in).to eq(-1)
+      end
+
+    end
+
   end
 
 end
