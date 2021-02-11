@@ -12,7 +12,6 @@ class GildedRose
           break
         when "Aged Brie"
           item.quality += 1 if item.quality < 50
-          item.sell_in -= 1
         when "Backstage passes to a TAFKAL80ETC concert"
           if item.sell_in <= 0
             item.quality = 0
@@ -24,12 +23,12 @@ class GildedRose
             item.quality += 1
           end
           item.quality = 50 if item.quality > 50
-          item.sell_in -= 1
         when "Conjured"
           update_quality_for_misc(item, base_degredation_rate: 2)
         else
           update_quality_for_misc(item, base_degredation_rate: 1)
       end
+      item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
     end
 
   end
@@ -42,7 +41,6 @@ class GildedRose
       item.quality -= base_degredation_rate * 2
     end
     item.quality = 0 if item.quality < 0
-    item.sell_in -= 1
   end
 
 end
