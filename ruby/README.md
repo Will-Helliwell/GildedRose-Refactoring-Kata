@@ -51,7 +51,7 @@ Where the code functionality differs from the spec, I have prioritized preservin
   - reduces to zero if there are zero or fewer days left to sell
   - cannot be greater than 50
 
-**Any other item name (string)**
+**Any other item name (I will refer to as 'misc' items)**
 - sell_in - reduces by 1 at all times
 - Affect of update_quality on Item.quality:
   - it never drops below zero
@@ -60,6 +60,17 @@ Where the code functionality differs from the spec, I have prioritized preservin
 
 
 ### New Feature Required
+
+Spec - "Conjured items degrade in quality twice as fast as normal items"
+
+Assumptions:
+- 'Normal items' = any items other than Sulfuras, Aged Brie and the Backstage Pass.
+- Conjured items will therefore have the same behaviour as misc items, except for their speedier degredation:
+  - - sell_in - reduces by 1 at all times
+  - Affect of update_quality on Item.quality:
+    - it never drops below zero
+    - it decreases by 2 when it there are 1 or more days left to sell (and quality > 0)
+    - it decreases by 4 when sell_in has reached zero or below (and quality > 0)
 
 ### Other Functionality to Add
 

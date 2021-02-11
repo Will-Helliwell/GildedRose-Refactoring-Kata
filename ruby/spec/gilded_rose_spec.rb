@@ -97,7 +97,37 @@ describe GildedRose do
         end
       end
 
-      context "given a miscellaneous item" do
+      context "given a Conjured item" do
+        items = [Item.new("misc", 25, 0)] #index 0
+        items << Item.new("misc", -10, 0) #index 1
+        items << Item.new("misc", 50, 2) #index 2
+        items << Item.new("misc", 10, 50) #index 3
+        items << Item.new("misc", 0, 10) #index 4
+        items << Item.new("misc", -10, 10) #index 5
+        items << Item.new("misc", -10, 1) #index 6
+        guilded_rose = GildedRose.new(items)
+        guilded_rose.update_quality()
+        it "does not reduce the quality below 0" do
+          expect(items[0].quality).to eq(0)
+          expect(items[1].quality).to eq(0)
+        end
+        it "reduces the quality by 2 when there are 1 or more days left to sell (and quality > 0)" do
+          expect(items[2].quality).to eq(0)
+          expect(items[3].quality).to eq(48)
+        end
+        it "reduces the quality by 4 when sell_in has reached zero or below (and quality > 1)" do
+          expect(items[4].quality).to eq(6)
+          expect(items[5].quality).to eq(6)
+        end
+        it "reduces the sell_in by 1 at all times" do
+          expect(items[0].sell_in).to eq(24)
+          expect(items[2].sell_in).to eq(49)
+          expect(items[3].sell_in).to eq(9)
+          expect(items[4].sell_in).to eq(-1)
+        end
+      end
+
+      context "given a misc item" do
         items = [Item.new("misc", 25, 0)] #index 0
         items << Item.new("misc", -10, 0) #index 1
         items << Item.new("misc", 50, 1) #index 2
