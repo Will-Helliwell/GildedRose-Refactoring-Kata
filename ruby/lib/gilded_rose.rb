@@ -11,11 +11,11 @@ class GildedRose
         when "Sulfuras, Hand of Ragnaros"
           break
         when "Aged Brie"
-          puts "cheese"
+          item.sell_in -= 1
         when "Backstage passes to a TAFKAL80ETC concert"
-          puts "pass"
+          item.sell_in -= 1
         else
-        puts "misc"
+          item.sell_in -= 1
       end
     end
 
