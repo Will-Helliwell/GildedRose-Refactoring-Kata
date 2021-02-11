@@ -98,13 +98,13 @@ describe GildedRose do
       end
 
       context "given a Conjured item" do
-        items = [Item.new("misc", 25, 0)] #index 0
-        items << Item.new("misc", -10, 0) #index 1
-        items << Item.new("misc", 50, 2) #index 2
-        items << Item.new("misc", 10, 50) #index 3
-        items << Item.new("misc", 0, 10) #index 4
-        items << Item.new("misc", -10, 10) #index 5
-        items << Item.new("misc", -10, 1) #index 6
+        items = [Item.new("Conjured", 25, 0)] #index 0
+        items << Item.new("Conjured", -10, 0) #index 1
+        items << Item.new("Conjured", 50, 2) #index 2
+        items << Item.new("Conjured", 10, 50) #index 3
+        items << Item.new("Conjured", 0, 10) #index 4
+        items << Item.new("Conjured", -10, 10) #index 5
+        items << Item.new("Conjured", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_quality()
         it "does not reduce the quality below 0" do

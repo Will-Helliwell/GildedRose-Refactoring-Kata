@@ -25,9 +25,17 @@ class GildedRose
           end
           item.quality = 50 if item.quality > 50
           item.sell_in -= 1
+        when "Conjured"
+          if item.sell_in > 0 && item.quality > 0
+            item.quality -= 2
+          elsif item.sell_in <= 0 && item.quality > 0
+            item.quality -= 4
+          end
+          item.quality = 0 if item.quality < 0
+          item.sell_in -= 1
         else
           if item.sell_in > 0 && item.quality > 0
-            item.quality -=1
+            item.quality -= 1
           elsif item.sell_in <= 0 && item.quality > 0
             item.quality -= 2
           end
