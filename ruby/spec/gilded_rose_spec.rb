@@ -230,6 +230,7 @@ describe GildedRose do
         items << Item.new("misc", 10, 50) #index 3
         items << Item.new("misc", 0, 10) #index 4
         items << Item.new("misc", -10, 10) #index 5
+        items << Item.new("misc", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_quality2()
         it "does not reduce the quality below 0" do
@@ -240,9 +241,12 @@ describe GildedRose do
           expect(items[2].quality).to eq(0)
           expect(items[3].quality).to eq(49)
         end
-        it "reduces the quality by 2 when sell_in has reached zero or below (and quality > 0)" do
+        it "reduces the quality by 2 when sell_in has reached zero or below (and quality > 1)" do
           expect(items[4].quality).to eq(8)
           expect(items[5].quality).to eq(8)
+        end
+        it "reduces the quality by 1 when sell_in has reached zero or below (and quality == 1)" do
+          expect(items[6].quality).to eq(0)
         end
         it "reduces the sell_in by 1 at all times" do
           expect(items[0].sell_in).to eq(24)
