@@ -11,6 +11,7 @@ class GildedRose
         when "Sulfuras, Hand of Ragnaros"
           break
         when "Aged Brie"
+          item.quality += 1 if item.quality < 50
           item.sell_in -= 1
         when "Backstage passes to a TAFKAL80ETC concert"
           item.sell_in -= 1
