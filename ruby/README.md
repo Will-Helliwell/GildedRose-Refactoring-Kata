@@ -11,7 +11,7 @@ Reasoning:
 - Adding automated tests is a necessary precursor for steps 3 and 4 because they will provide regression tests to reassure me that I am preserving all existing functionality (which I assume the client wants to keep, given that they have been using it without issue for a number of years). It will also communicate the intent of the code more clearly for any future developers in my position.
 - Refactoring the code is a necessary precursor to step 4 because it will make it clearer exactly where the new functionality needs to sit within the code. A quick scan of the code in GildedRose.rb reveals plenty of opportunity for improvement e.g. removing nested conditionals, removing repetitions of variables (following DRY principles). Again, refactoring also future-proofs the code in terms of readability and maintainability.
 
-### Isolating
+### Isolating Tests
 - It is very difficult to isolate GildedRose class tests from the Item class since GildedRose's only purpose is to update information stored in the item class. Decision - with no clear way to isolate and because Item class is so simple (pretty much just an initializer), I will not isolate the tests.
 
 
@@ -27,9 +27,9 @@ Item class:
 
 ####Items available and Existing Behaviour:
 
-Below I describe the existing behaviour of the item types at the point at which the code was handed over. This occasionally differs from the specification, in which case I have made a note.
+Below I describe the existing behaviour of the item types, before I have made any changes. This occasionally differs from the specification (e.g. for aged brie), in which case I have made a note below. I have split the behaviour between the 4 item types, as I think it is easier to follow and reflects the logic of the code better than the explanation in the specification.
 
-I prioritize preserving existing behaviour over the spec, given that the code has been used satisfactorily up until now.
+Where the code functionality differs from the spec, I have prioritized preserving existing behaviour over following the spec, given that the code has been used satisfactorily on a daily basis up until now.
 
 **"Sulfuras, Hand of Ragnaros"**
 - sell_in - never has to be sold -> nil would make sense but code throws error unless argument is an integer. For now: give as any arbitrary integer which must never change.
@@ -57,6 +57,7 @@ I prioritize preserving existing behaviour over the spec, given that the code ha
   - it never drops below zero
   - it decreases by 1 when it there are 1 or more days left to sell (and quality > 0)
   - it decreases by 2 when sell_in has reached zero or below (and quality > 0)
+
 
 ### New Feature Required
 

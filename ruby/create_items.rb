@@ -1,10 +1,10 @@
 
-brie = Item.new("Aged Brie", 25, 25)
-pass = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 0)
-sulfuras = Item.new("Sulfuras, Hand of Ragnaros", 100, 25)
-brie = Item.new("misc", 25, 25)
+brie = Item.new("Aged Brie", 25, 100)
+pass = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 100)
+sulfuras = Item.new("Sulfuras, Hand of Ragnaros", 100, 100)
+misc = Item.new("misc", 25, 100)
 
-items = [brie, pass, sulfuras]
+items = [brie, pass, sulfuras, misc]
 
 gr = GildedRose.new(items)
 gr = GildedRose.new([brie])
