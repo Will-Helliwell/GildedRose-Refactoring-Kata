@@ -4,6 +4,23 @@ class GildedRose
     @items = items
   end
 
+  def update_quality2()
+
+    @items.each do |item|
+      case item.name
+        when "Sulfuras, Hand of Ragnaros"
+          break
+        when "Aged Brie"
+          puts "cheese"
+        when "Backstage passes to a TAFKAL80ETC concert"
+          puts "pass"
+        else
+        puts "misc"
+      end
+    end
+
+  end
+
   def update_quality()
     @items.each do |item|
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
