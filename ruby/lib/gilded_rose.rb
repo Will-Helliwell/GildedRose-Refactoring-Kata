@@ -2,7 +2,7 @@
 
 require_relative './item.rb'
 
-# Holds all the items in stock and updates them after each day
+# Holds all the items in stock and can update their details
 class GildedRose
   def initialize(items)
     @items = items
@@ -18,27 +18,30 @@ class GildedRose
   def update_quality
     @items.each do |item|
       case item.name
-      when 'Sulfuras, Hand of Ragnaros'
-        break
-      when 'Aged Brie'
-        item.quality += 1 if item.quality < Item::MAX_QUALITY
-      when 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in <= 0
-          item.quality = Item::MIN_QUALITY
-        elsif item.sell_in >= 1 && item.sell_in <= 5
-          item.quality += 3
-        elsif item.sell_in >= 6 && item.sell_in <= 10
-          item.quality += 2
-        elsif item.sell_in > 10
-          item.quality += 1
-        end
-        item.quality = Item::MAX_QUALITY if item.quality > Item::MAX_QUALITY
-      when 'Conjured'
-        update_quality_for_misc(item, base_degredation_rate: 2)
-      else
-        update_quality_for_misc(item, base_degredation_rate: 1)
+      when 'Sulfuras, Hand of Ragnaros' then break
+      when 'Aged Brie' then update_quality_for_brie(item)
+      when 'Backstage passes to a TAFKAL80ETC concert' then update_quality_for_pass(item)
+      when 'Conjured' then update_quality_for_misc(item, base_degredation_rate: 2)
+      else update_quality_for_misc(item, base_degredation_rate: 1)
       end
     end
+  end
+
+  def update_quality_for_brie(item)
+    item.quality += 1 if item.quality < Item::MAX_QUALITY
+  end
+
+  def update_quality_for_pass(item)
+    if item.sell_in <= 0
+      item.quality = Item::MIN_QUALITY
+    elsif item.sell_in.between?(1, 5)
+      item.quality += 3
+    elsif item.sell_in.between?(6, 10)
+      item.quality += 2
+    elsif item.sell_in > 10
+      item.quality += 1
+    end
+    item.quality = Item::MAX_QUALITY if item.quality > Item::MAX_QUALITY
   end
 
   def update_quality_for_misc(item, base_degredation_rate:)
