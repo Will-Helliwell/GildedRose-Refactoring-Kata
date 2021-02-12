@@ -1,6 +1,7 @@
 class Item
 
   MAX_QUALITY = 50
+  MIN_QUALITY = 0
 
   attr_accessor :name, :sell_in, :quality
 

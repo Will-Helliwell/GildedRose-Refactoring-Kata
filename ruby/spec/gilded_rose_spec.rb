@@ -80,8 +80,8 @@ describe GildedRose do
           expect(items[2].quality).to eq(28)
           expect(items[3].quality).to eq(28)
         end
-        it "drops the quality to zero when sell_in is already zero" do
-          expect(items[4].quality).to eq(0)
+        it "drops the quality to Item::MIN_QUALITY when sell_in is already zero" do
+          expect(items[4].quality).to eq(Item::MIN_QUALITY)
         end
         it "does not increase the quality above Item::MAX_QUALITY" do
           expect(items[8].quality).to eq(Item::MAX_QUALITY)
@@ -98,8 +98,8 @@ describe GildedRose do
       end
 
       context "given a Conjured item" do
-        items = [Item.new("Conjured", 25, 0)] #index 0
-        items << Item.new("Conjured", -10, 0) #index 1
+        items = [Item.new("Conjured", 25, Item::MIN_QUALITY)] #index 0
+        items << Item.new("Conjured", -10, Item::MIN_QUALITY) #index 1
         items << Item.new("Conjured", Item::MAX_QUALITY, 2) #index 2
         items << Item.new("Conjured", 10, Item::MAX_QUALITY) #index 3
         items << Item.new("Conjured", 0, 10) #index 4
@@ -107,9 +107,9 @@ describe GildedRose do
         items << Item.new("Conjured", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_products()
-        it "does not reduce the quality below 0" do
-          expect(items[0].quality).to eq(0)
-          expect(items[1].quality).to eq(0)
+        it "does not reduce the quality below Item::MIN_QUALITY" do
+          expect(items[0].quality).to eq(Item::MIN_QUALITY)
+          expect(items[1].quality).to eq(Item::MIN_QUALITY)
         end
         it "reduces the quality by 2 when there are 1 or more days left to sell (and quality > 0)" do
           expect(items[2].quality).to eq(0)
@@ -128,8 +128,8 @@ describe GildedRose do
       end
 
       context "given a misc item" do
-        items = [Item.new("misc", 25, 0)] #index 0
-        items << Item.new("misc", -10, 0) #index 1
+        items = [Item.new("misc", 25, Item::MIN_QUALITY)] #index 0
+        items << Item.new("misc", -10, Item::MIN_QUALITY) #index 1
         items << Item.new("misc", Item::MAX_QUALITY, 1) #index 2
         items << Item.new("misc", 10, Item::MAX_QUALITY) #index 3
         items << Item.new("misc", 0, 10) #index 4
@@ -137,9 +137,9 @@ describe GildedRose do
         items << Item.new("misc", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_products()
-        it "does not reduce the quality below 0" do
-          expect(items[0].quality).to eq(0)
-          expect(items[1].quality).to eq(0)
+        it "does not reduce the quality below Item::MIN_QUALITY" do
+          expect(items[0].quality).to eq(Item::MIN_QUALITY)
+          expect(items[1].quality).to eq(Item::MIN_QUALITY)
         end
         it "reduces the quality by 1 when there are 1 or more days left to sell (and quality > 0)" do
           expect(items[2].quality).to eq(0)

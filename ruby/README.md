@@ -12,7 +12,8 @@ Reasoning:
 - Refactoring the code is a necessary precursor to step 4 because it will make it clearer exactly where the new functionality needs to sit within the code. A quick scan of the code in GildedRose.rb reveals plenty of opportunity for improvement e.g. removing nested conditionals, removing repetitions of variables (following DRY principles). Again, refactoring also future-proofs the code in terms of readability and maintainability.
 
 ### Isolating Tests
-- It is very difficult to isolate GildedRose class tests from the Item class since GildedRose's only purpose is to update information stored in the item class. Decision - with no clear way to isolate and because Item class is so simple (pretty much just an initializer), I will not isolate the tests.
+
+Item class is very simple, basically just a data container with no logic. I will therefore will not isolate the tests.
 
 
 ## Spec
@@ -77,7 +78,9 @@ Assumptions:
 
 **Naming** - I have renamed the 'update_quality' method to 'update_products' as I feel it is more descriptive of its behaviour. The update_products methods is now composed of two private methods, 'update_quality' and 'update_sell_in'. Again this makes the code more readable and more changeable.
 
-### Other Functionality to Add
+**File Structure** - Item class moved to a separate file.
+
+### Functionality to Add in Future
 
 **Item class**
 - Does not allow items to be initialized with quality > 50 (as per specification)
