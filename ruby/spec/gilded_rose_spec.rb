@@ -7,7 +7,7 @@ describe GildedRose do
       it "does not change the names of items" do
         items = [Item.new("foo", 0, 0)]
         items << Item.new("Aged Brie", 25, 25)
-        items << Item.new("Sulfuras, Hand of Ragnaros", 100, 50)
+        items << Item.new("Sulfuras, Hand of Ragnaros", 100, Item::MAX_QUALITY)
         GildedRose.new(items).update_quality()
         expect(items[0].name).to eq "foo"
         expect(items[1].name).to eq "Aged Brie"
@@ -15,7 +15,7 @@ describe GildedRose do
       end
 
       context "given Sulfuras, Hand of Ragnaros" do
-        items = [Item.new("Sulfuras, Hand of Ragnaros", 100, 50)]
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 100, Item::MAX_QUALITY)]
         items << Item.new("Sulfuras, Hand of Ragnaros", 0, 0)
         items << Item.new("Sulfuras, Hand of Ragnaros", 10, 10)
         GildedRose.new(items).update_quality()
@@ -25,7 +25,7 @@ describe GildedRose do
           expect(items[2].sell_in).to eq(10)
         end
         it "does not change the quality" do
-          expect(items[0].quality).to eq(50)
+          expect(items[0].quality).to eq(Item::MAX_QUALITY)
           expect(items[1].quality).to eq(0)
           expect(items[2].quality).to eq(10)
         end
@@ -35,16 +35,16 @@ describe GildedRose do
         items = [Item.new("Aged Brie", 25, 25)]
         items << Item.new("Aged Brie", 9, 0)
         items << Item.new("Aged Brie", 0, 49)
-        items << Item.new("Aged Brie", 25, 50)
+        items << Item.new("Aged Brie", 25, Item::MAX_QUALITY)
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_quality()
-        it "increases the quality by 1 when quality < 50" do
+        it "increases the quality by 1 when quality < Item::MAX_QUALITY" do
           expect(items[0].quality).to eq(26)
           expect(items[1].quality).to eq(1)
-          expect(items[2].quality).to eq(50)
+          expect(items[2].quality).to eq(Item::MAX_QUALITY)
         end
-        it "does not increase the quality above 50" do
-          expect(items[3].quality).to eq(50)
+        it "does not increase the quality above Item::MAX_QUALITY" do
+          expect(items[3].quality).to eq(Item::MAX_QUALITY)
         end
         it "reduces the sell_in by 1 at all times" do
           expect(items[0].sell_in).to eq(24)
@@ -62,9 +62,9 @@ describe GildedRose do
         items << Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 25) # index 5
         items << Item.new("Backstage passes to a TAFKAL80ETC concert", 25, 25) # index 6
         items << Item.new("Backstage passes to a TAFKAL80ETC concert", 100, 25) # index 7
-        items << Item.new("Backstage passes to a TAFKAL80ETC concert", 50, 50) # index 8
-        items << Item.new("Backstage passes to a TAFKAL80ETC concert", 6, 50) # index 9
-        items << Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 50) # index 10
+        items << Item.new("Backstage passes to a TAFKAL80ETC concert", Item::MAX_QUALITY, Item::MAX_QUALITY) # index 8
+        items << Item.new("Backstage passes to a TAFKAL80ETC concert", 6, Item::MAX_QUALITY) # index 9
+        items << Item.new("Backstage passes to a TAFKAL80ETC concert", 1, Item::MAX_QUALITY) # index 10
         guilded_rose = GildedRose.new(items)
         guilded_rose.update_quality()
         it "increases the quality by 1 if sell_in is already > 10" do
@@ -83,10 +83,10 @@ describe GildedRose do
         it "drops the quality to zero when sell_in is already zero" do
           expect(items[4].quality).to eq(0)
         end
-        it "does not increase the quality above 50" do
-          expect(items[8].quality).to eq(50)
-          expect(items[9].quality).to eq(50)
-          expect(items[10].quality).to eq(50)
+        it "does not increase the quality above Item::MAX_QUALITY" do
+          expect(items[8].quality).to eq(Item::MAX_QUALITY)
+          expect(items[9].quality).to eq(Item::MAX_QUALITY)
+          expect(items[10].quality).to eq(Item::MAX_QUALITY)
         end
         it "reduces the sell_in by 1 at all times" do
           expect(items[0].sell_in).to eq(9)
@@ -100,8 +100,8 @@ describe GildedRose do
       context "given a Conjured item" do
         items = [Item.new("Conjured", 25, 0)] #index 0
         items << Item.new("Conjured", -10, 0) #index 1
-        items << Item.new("Conjured", 50, 2) #index 2
-        items << Item.new("Conjured", 10, 50) #index 3
+        items << Item.new("Conjured", Item::MAX_QUALITY, 2) #index 2
+        items << Item.new("Conjured", 10, Item::MAX_QUALITY) #index 3
         items << Item.new("Conjured", 0, 10) #index 4
         items << Item.new("Conjured", -10, 10) #index 5
         items << Item.new("Conjured", -10, 1) #index 6
@@ -130,8 +130,8 @@ describe GildedRose do
       context "given a misc item" do
         items = [Item.new("misc", 25, 0)] #index 0
         items << Item.new("misc", -10, 0) #index 1
-        items << Item.new("misc", 50, 1) #index 2
-        items << Item.new("misc", 10, 50) #index 3
+        items << Item.new("misc", Item::MAX_QUALITY, 1) #index 2
+        items << Item.new("misc", 10, Item::MAX_QUALITY) #index 3
         items << Item.new("misc", 0, 10) #index 4
         items << Item.new("misc", -10, 10) #index 5
         items << Item.new("misc", -10, 1) #index 6

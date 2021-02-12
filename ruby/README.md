@@ -66,7 +66,7 @@ Spec - "Conjured items degrade in quality twice as fast as normal items"
 Assumptions:
 - 'Normal items' = any items other than Sulfuras, Aged Brie and the Backstage Pass.
 - Conjured items will therefore have the same behaviour as misc items, except for their speedier degredation:
-  - - sell_in - reduces by 1 at all times
+  - sell_in - reduces by 1 at all times
   - Affect of update_quality on Item.quality:
     - it never drops below zero
     - it decreases by 2 when it there are 1 or more days left to sell (and quality > 0)

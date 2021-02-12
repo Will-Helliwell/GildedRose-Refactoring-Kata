@@ -11,7 +11,7 @@ class GildedRose
         when "Sulfuras, Hand of Ragnaros"
           break
         when "Aged Brie"
-          item.quality += 1 if item.quality < 50
+          item.quality += 1 if item.quality < Item::MAX_QUALITY
         when "Backstage passes to a TAFKAL80ETC concert"
           if item.sell_in <= 0
             item.quality = 0
@@ -22,7 +22,7 @@ class GildedRose
           elsif item.sell_in > 10
             item.quality += 1
           end
-          item.quality = 50 if item.quality > 50
+          item.quality = Item::MAX_QUALITY if item.quality > Item::MAX_QUALITY
         when "Conjured"
           update_quality_for_misc(item, base_degredation_rate: 2)
         else
@@ -46,6 +46,9 @@ class GildedRose
 end
 
 class Item
+
+  MAX_QUALITY = 50
+
   attr_accessor :name, :sell_in, :quality
 
   def initialize(name, sell_in, quality)
