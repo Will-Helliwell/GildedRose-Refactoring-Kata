@@ -1,4 +1,7 @@
 require_relative './item.rb'
 
 class Sulfuras < Item
-end 
+
+  def update_quality
+  end
+end
