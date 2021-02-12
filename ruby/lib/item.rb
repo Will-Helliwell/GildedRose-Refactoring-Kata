@@ -1,5 +1,7 @@
-class Item
+# frozen_string_literal: true
 
+# Holds the data for each item
+class Item
   MAX_QUALITY = 50
   MIN_QUALITY = 0
 
@@ -11,7 +13,7 @@ class Item
     @quality = quality
   end
 
-  def to_s()
+  def to_s
     "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
