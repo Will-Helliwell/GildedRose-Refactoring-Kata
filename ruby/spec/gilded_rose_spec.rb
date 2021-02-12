@@ -2,13 +2,13 @@ require 'gilded_rose.rb'
 
 describe GildedRose do
 
-    describe "#update_quality" do
+    describe "#update_products" do
 
       it "does not change the names of items" do
         items = [Item.new("foo", 0, 0)]
         items << Item.new("Aged Brie", 25, 25)
         items << Item.new("Sulfuras, Hand of Ragnaros", 100, Item::MAX_QUALITY)
-        GildedRose.new(items).update_quality()
+        GildedRose.new(items).update_products()
         expect(items[0].name).to eq "foo"
         expect(items[1].name).to eq "Aged Brie"
         expect(items[2].name).to eq "Sulfuras, Hand of Ragnaros"
@@ -18,7 +18,7 @@ describe GildedRose do
         items = [Item.new("Sulfuras, Hand of Ragnaros", 100, Item::MAX_QUALITY)]
         items << Item.new("Sulfuras, Hand of Ragnaros", 0, 0)
         items << Item.new("Sulfuras, Hand of Ragnaros", 10, 10)
-        GildedRose.new(items).update_quality()
+        GildedRose.new(items).update_products()
         it "does not change the sell_in" do
           expect(items[0].sell_in).to eq(100)
           expect(items[1].sell_in).to eq(0)
@@ -37,7 +37,7 @@ describe GildedRose do
         items << Item.new("Aged Brie", 0, 49)
         items << Item.new("Aged Brie", 25, Item::MAX_QUALITY)
         guilded_rose = GildedRose.new(items)
-        guilded_rose.update_quality()
+        guilded_rose.update_products()
         it "increases the quality by 1 when quality < Item::MAX_QUALITY" do
           expect(items[0].quality).to eq(26)
           expect(items[1].quality).to eq(1)
@@ -66,7 +66,7 @@ describe GildedRose do
         items << Item.new("Backstage passes to a TAFKAL80ETC concert", 6, Item::MAX_QUALITY) # index 9
         items << Item.new("Backstage passes to a TAFKAL80ETC concert", 1, Item::MAX_QUALITY) # index 10
         guilded_rose = GildedRose.new(items)
-        guilded_rose.update_quality()
+        guilded_rose.update_products()
         it "increases the quality by 1 if sell_in is already > 10" do
           expect(items[5].quality).to eq(26)
           expect(items[6].quality).to eq(26)
@@ -106,7 +106,7 @@ describe GildedRose do
         items << Item.new("Conjured", -10, 10) #index 5
         items << Item.new("Conjured", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
-        guilded_rose.update_quality()
+        guilded_rose.update_products()
         it "does not reduce the quality below 0" do
           expect(items[0].quality).to eq(0)
           expect(items[1].quality).to eq(0)
@@ -136,7 +136,7 @@ describe GildedRose do
         items << Item.new("misc", -10, 10) #index 5
         items << Item.new("misc", -10, 1) #index 6
         guilded_rose = GildedRose.new(items)
-        guilded_rose.update_quality()
+        guilded_rose.update_products()
         it "does not reduce the quality below 0" do
           expect(items[0].quality).to eq(0)
           expect(items[1].quality).to eq(0)

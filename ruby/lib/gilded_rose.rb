@@ -4,8 +4,12 @@ class GildedRose
     @items = items
   end
 
-  def update_quality()
+  def update_products()
+    update_quality()
+    update_sell_in()
+  end
 
+  def update_quality()
     @items.each do |item|
       case item.name
         when "Sulfuras, Hand of Ragnaros"
@@ -24,17 +28,23 @@ class GildedRose
           end
           item.quality = Item::MAX_QUALITY if item.quality > Item::MAX_QUALITY
         when "Conjured"
-          update_quality_for_misc(item, base_degredation_rate: 2)
+          update_products_for_misc(item, base_degredation_rate: 2)
         else
-          update_quality_for_misc(item, base_degredation_rate: 1)
+          update_products_for_misc(item, base_degredation_rate: 1)
       end
-      item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
     end
-
   end
 
+  def update_sell_in()
+    @items.each do |item|
+      item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
+    end
+  end
+
+
+
   private
-  def update_quality_for_misc(item, base_degredation_rate:)
+  def update_products_for_misc(item, base_degredation_rate:)
     if item.sell_in > 0 && item.quality > 0
       item.quality -= base_degredation_rate
     elsif item.sell_in <= 0 && item.quality > 0
