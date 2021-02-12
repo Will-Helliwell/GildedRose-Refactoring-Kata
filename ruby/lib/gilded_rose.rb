@@ -9,6 +9,8 @@ class GildedRose
     update_sell_in()
   end
 
+  private
+
   def update_quality()
     @items.each do |item|
       case item.name
@@ -28,9 +30,9 @@ class GildedRose
           end
           item.quality = Item::MAX_QUALITY if item.quality > Item::MAX_QUALITY
         when "Conjured"
-          update_products_for_misc(item, base_degredation_rate: 2)
+          update_quality_for_misc(item, base_degredation_rate: 2)
         else
-          update_products_for_misc(item, base_degredation_rate: 1)
+          update_quality_for_misc(item, base_degredation_rate: 1)
       end
     end
   end
@@ -41,10 +43,7 @@ class GildedRose
     end
   end
 
-
-
-  private
-  def update_products_for_misc(item, base_degredation_rate:)
+  def update_quality_for_misc(item, base_degredation_rate:)
     if item.sell_in > 0 && item.quality > 0
       item.quality -= base_degredation_rate
     elsif item.sell_in <= 0 && item.quality > 0

@@ -58,8 +58,7 @@ Where the code functionality differs from the spec, I have prioritized preservin
   - it decreases by 1 when it there are 1 or more days left to sell (and quality > 0)
   - it decreases by 2 when sell_in has reached zero or below (and quality > 0)
 
-
-### New Feature Required
+### New Feature Added
 
 Spec - "Conjured items degrade in quality twice as fast as normal items"
 
@@ -71,6 +70,12 @@ Assumptions:
     - it never drops below zero
     - it decreases by 2 when it there are 1 or more days left to sell (and quality > 0)
     - it decreases by 4 when sell_in has reached zero or below (and quality > 0)
+
+### Changes Made
+
+**Refactoring** - the code has the same functionality as the original but is now significantly shorter, more readable and more changeable (primarily through the use of a case statement, but also extraction of constants, private methods etc.)
+
+**Naming** - I have renamed the 'update_quality' method to 'update_products' as I feel it is more descriptive of its behaviour. The update_products methods is now composed of two private methods, 'update_quality' and 'update_sell_in'. Again this makes the code more readable and more changeable.
 
 ### Other Functionality to Add
 
