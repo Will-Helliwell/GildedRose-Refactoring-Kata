@@ -1,5 +1,30 @@
 # Gilded Rose Kata - Ruby
 
+## To Run from the Terminal:
+
+### Installation:
+- Clone this repository and navigate to root/ruby
+- `bundle install`
+
+### To run:
+- Can be run from any REPL
+  - e.g. in IRB: `irb -r "./lib/gilded_rose.rb"`
+
+#### Methods available:
+- `your_item_name = Item.new(name, sell_in, quality)`
+  --> creates a new item
+
+- `your_inn_name = GildedRose.new([your_item_name, your_second_item_name...])`
+  --> creates a new inn with an inventory consisting of the argument provided (inteded to be an array of Item instances)
+
+- `your_inn_name.update_products`
+  --> updates the sell_in and quality for each item in the inn's inventory as if one day has passed
+
+### To run tests
+- `rspec` (must be in root/ruby)
+- 99.41% test coverage
+- 21 unit tests for update_quality method, all pass
+
 ## Approach
 
 1 - ensure test infrastructure working. Add SimpleCov to test code coverage and Rubocop to enforce code-style best practices.
