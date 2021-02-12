@@ -1,3 +1,5 @@
+require_relative './item.rb'
+
 class GildedRose
 
   def initialize(items)
@@ -10,7 +12,6 @@ class GildedRose
   end
 
   private
-
   def update_quality()
     @items.each do |item|
       case item.name
@@ -36,13 +37,6 @@ class GildedRose
       end
     end
   end
-
-  def update_sell_in()
-    @items.each do |item|
-      item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
-    end
-  end
-
   def update_quality_for_misc(item, base_degredation_rate:)
     if item.sell_in > 0 && item.quality > 0
       item.quality -= base_degredation_rate
@@ -51,22 +45,9 @@ class GildedRose
     end
     item.quality = 0 if item.quality < 0
   end
-
-end
-
-class Item
-
-  MAX_QUALITY = 50
-
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
+  def update_sell_in()
+    @items.each do |item|
+      item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
+    end
   end
 end
