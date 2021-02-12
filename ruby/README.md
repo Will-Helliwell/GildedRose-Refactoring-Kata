@@ -75,6 +75,7 @@ Assumptions:
 ### Changes Made
 
 **Refactoring** - the code has the same functionality as the original but is now significantly shorter, more readable and more changeable (primarily through the use of a case statement, but also extraction of constants, private methods etc.)
+  - I have made minor changes to the Item class by giving it constants for Item::MIN_QUALITY and Item::MAX_QUALITY. Happy to take this up with the coding gremlin.
 
 **Naming** - I have renamed the 'update_quality' method to 'update_products' as I feel it is more descriptive of its behaviour. The update_products methods is now composed of two private methods, 'update_quality' and 'update_sell_in'. Again this makes the code more readable and more changeable.
 

@@ -12,6 +12,7 @@ class GildedRose
   end
 
   private
+  
   def update_quality()
     @items.each do |item|
       case item.name
@@ -37,6 +38,7 @@ class GildedRose
       end
     end
   end
+
   def update_quality_for_misc(item, base_degredation_rate:)
     if item.sell_in > 0 && item.quality > Item::MIN_QUALITY
       item.quality -= base_degredation_rate
@@ -45,6 +47,7 @@ class GildedRose
     end
     item.quality = Item::MIN_QUALITY if item.quality < Item::MIN_QUALITY
   end
+
   def update_sell_in()
     @items.each do |item|
       item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
