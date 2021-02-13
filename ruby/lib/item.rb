@@ -18,5 +18,6 @@ class Item
   end
 
   def update_sell_in
+    self.sell_in -= 1
   end
 end
