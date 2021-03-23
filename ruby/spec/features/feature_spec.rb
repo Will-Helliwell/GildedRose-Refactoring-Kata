@@ -10,6 +10,15 @@ describe "FATURE TEST - Gilded Rose" do
     items << conjured = Conjured.new("conjured", 25, 25)
     gilded_rose = GildedRose.new(items)
     gilded_rose.update_products
-    
+    expect(standard_item.sell_in).to eq(24)
+    expect(aged_brie.sell_in).to eq(24)
+    expect(backstage_pass.sell_in).to eq(24)
+    expect(sulfuras.sell_in).to eq(25)
+    expect(conjured.sell_in).to eq(24)
+    expect(standard_item.quality).to eq(24)
+    expect(aged_brie.quality).to eq(26)
+    expect(backstage_pass.quality).to eq(26)
+    expect(sulfuras.quality).to eq(25)
+    expect(conjured.quality).to eq(23)
   end
 end
