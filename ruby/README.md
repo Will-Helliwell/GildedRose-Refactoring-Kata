@@ -1,4 +1,5 @@
 # Gilded Rose Kata - Ruby
+----
 
 ## To Run from the Terminal:
 
@@ -11,26 +12,37 @@
   - e.g. in IRB: `irb -r "./lib/gilded_rose.rb"`
 
 #### Methods available:
-- `your_item_name = Item.new(name, sell_in, quality)`
-  --> creates a new item
+- `your_item_name = <item_subclass_name>.new(name, sell_in, quality)`
+  --> creates a new item of the given subclass    
+  Item subclass names available:
+  ```
+  StandardItem.new
+  Sulfuras.new
+  AgedBrie.new
+  BackstagePass.new
+  Conjured.new
+  ```
 
 - `your_inn_name = GildedRose.new([your_item_name, your_second_item_name...])`
-  --> creates a new inn with an inventory consisting of the argument provided (inteded to be an array of Item instances)
+  --> creates a new inn with an inventory consisting of the argument provided (inteded to be an array of Item subclass instances)
 
 - `your_inn_name.update_products`
-  --> updates the sell_in and quality for each item in the inn's inventory as if one day has passed
+  --> updates the sell_in and quality for each item subclass instance in the inn's inventory as if one day has passed
 
 ### To run tests
 - `rspec` (must be in root/ruby)
 - 99.41% test coverage
-- 21 unit tests for update_quality method, all pass
+- 26 unit tests and 1 feature test. All passing.
+
+---
 
 ## Approach
 
-1 - ensure test infrastructure working. Add SimpleCov to test code coverage and Rubocop to enforce code-style best practices.
-2 - Before changing any code, write tests covering all existing functionality (should mostly match up with the spec) including edge cases.
-3 - Refactor the existing code as best as possible
-4 - Add the new feature
+Steps:    
+1 - ensure test infrastructure working. Add SimpleCov to test code coverage and Rubocop to enforce code-style best practices.   
+2 - Before changing any code, write tests covering all existing functionality (should mostly match up with the spec) including edge cases.    
+3 - Refactor the existing code as best as possible     
+4 - Add the new feature ('conjured' items)      
 
 Reasoning:
 - Adding automated tests is a necessary precursor for steps 3 and 4 because they will provide regression tests to reassure me that I am preserving all existing functionality (which I assume the client wants to keep, given that they have been using it without issue for a number of years). It will also communicate the intent of the code more clearly for any future developers in my position.
@@ -38,20 +50,19 @@ Reasoning:
 
 ### Isolating Tests
 
-Item class is very simple, basically just a data container with no logic. I will therefore will not isolate the tests.
+Item class is very simple, basically just a data container with no logic. I will therefore will not isolate its tests.
 
+---
 
-## Spec
-
-### Existing Functionality
+## Interpretation of Spec
 
 Item class:
 - @sell_in - integer, days left to sell the item
-- @quality - integer, how valuable the item is
-*both of the above are amended at the end of each day by calling the update_quality method on an instance of GildedRose*
+- @quality - integer, how valuable the item is   
+(*both of the above are amended at the end of each day by calling the update_quality method on an instance of GildedRose*)
 - @name
 
-####Items available and Existing Behaviour:
+#### Items available and Existing Behaviour:
 
 Below I describe the existing behaviour of the item types, before I have made any changes. This occasionally differs from the specification (e.g. for aged brie), in which case I have made a note below. I have split the behaviour between the 4 item types, as I think it is easier to follow and reflects the logic of the code better than the explanation in the specification.
 
@@ -84,7 +95,38 @@ Where the code functionality differs from the spec, I have prioritized preservin
   - it decreases by 1 when it there are 1 or more days left to sell (and quality > 0)
   - it decreases by 2 when sell_in has reached zero or below (and quality > 0)
 
-### New Feature Added
+## Work Completed 
+
+### 1 - Tests Added
+
+- Passing unit tests added to preserve all existing functionality I observed and took from the brief.
+- Single feature test also passing
+
+### 2 - Refactoring 
+
+I decided that any changes to the Item class were necessary, and am happy to take this up with the coding gremlin.
+
+#### Minor Refactoring 
+- the code has the same functionality as the original but is now significantly shorter, more readable and more changeable (e.g. through the use of a case statements instead of if/else, extraction of constants, private methods etc.)
+
+#### Using Inheritance
+Logic:
+- There are a set number of item types which tend to share some common behviour/data (e.g. having a quality attribute, reducing their sell_in by one each day) but also tend to respond differently to a specific method (update_quality). This naturally suggests a structure where all items inherit basic data/behaviour from a parent class, and then overwrite/add other behaviours as necessary. 
+- Structuring the code like this separated the different pieces of logic for each item type's response to update_quality into a different file, and removed the need for the long case statement (which was the best I could get to without using inheritance).
+
+Summary of Item class structure:
+- All item types inherit attributes for name, quality and sell_in from the Item superclass.
+- All item types inherit a response to update_sell_in by reducing the sell_in by 1 (except for 'sulfuras' which overrides this)
+- All item types define their own particular response to update_quality
+
+#### Additional Changes to Item Class
+  - Extracted constants for Item::MIN_QUALITY and Item::MAX_QUALITY
+  - Item class moved to a separate file
+
+#### Naming
+Renamed the 'update_quality' method to 'update_products' as I feel it is more descriptive of its behaviour. The update_products methods is now composed of two private methods, 'update_quality' and 'update_sell_in'. Again this makes the code more readable and more changeable.
+
+### 3 - New Feature Added
 
 Spec - "Conjured items degrade in quality twice as fast as normal items"
 
@@ -97,16 +139,7 @@ Assumptions:
     - it decreases by 2 when it there are 1 or more days left to sell (and quality > 0)
     - it decreases by 4 when sell_in has reached zero or below (and quality > 0)
 
-### Changes Made
-
-**Refactoring** - the code has the same functionality as the original but is now significantly shorter, more readable and more changeable (primarily through the use of a case statement, but also extraction of constants, private methods etc.)
-  - I have made minor changes to the Item class by giving it constants for Item::MIN_QUALITY and Item::MAX_QUALITY. Happy to take this up with the coding gremlin.
-
-**Naming** - I have renamed the 'update_quality' method to 'update_products' as I feel it is more descriptive of its behaviour. The update_products methods is now composed of two private methods, 'update_quality' and 'update_sell_in'. Again this makes the code more readable and more changeable.
-
-**File Structure** - Item class moved to a separate file.
-
-### Functionality to Add in Future
+## Functionality to Add in Future
 
 **Item class**
 - Does not allow items to be initialized with quality > 50 (as per specification)
