@@ -1,30 +1,5 @@
 # Gilded Rose Kata - Ruby
 
-## To Run from the Terminal:
-
-### Installation:
-- Clone this repository and navigate to root/ruby
-- `bundle install`
-
-### To run:
-- Can be run from any REPL
-  - e.g. in IRB: `irb -r "./lib/gilded_rose.rb"`
-
-#### Methods available:
-- `your_item_name = Item.new(name, sell_in, quality)`
-  --> creates a new item
-
-- `your_inn_name = GildedRose.new([your_item_name, your_second_item_name...])`
-  --> creates a new inn with an inventory consisting of the argument provided (inteded to be an array of Item instances)
-
-- `your_inn_name.update_products`
-  --> updates the sell_in and quality for each item in the inn's inventory as if one day has passed
-
-### To run tests
-- `rspec` (must be in root/ruby)
-- 99.41% test coverage
-- 21 unit tests for update_quality method, all pass
-
 ## Approach
 
 1 - ensure test infrastructure working. Add SimpleCov to test code coverage and Rubocop to enforce code-style best practices.
@@ -38,8 +13,9 @@ Reasoning:
 
 ### Isolating Tests
 
-Item class is very simple, basically just a data container with no logic. I will therefore will not isolate the tests.
+Item class is very simple, basically just a data container with no logic. I will therefore will not isolate the Item class tests.
 
+---
 
 ## Spec
 
@@ -47,11 +23,11 @@ Item class is very simple, basically just a data container with no logic. I will
 
 Item class:
 - @sell_in - integer, days left to sell the item
-- @quality - integer, how valuable the item is
-*both of the above are amended at the end of each day by calling the update_quality method on an instance of GildedRose*
-- @name
+- @quality - integer, how valuable the item is    
+(*both of the above are amended at the end of each day by calling the update_quality method on an instance of GildedRose*)
+- @name - string
 
-####Items available and Existing Behaviour:
+#### Items available and Existing Behaviour:
 
 Below I describe the existing behaviour of the item types, before I have made any changes. This occasionally differs from the specification (e.g. for aged brie), in which case I have made a note below. I have split the behaviour between the 4 item types, as I think it is easier to follow and reflects the logic of the code better than the explanation in the specification.
 
@@ -112,3 +88,30 @@ Assumptions:
 - Does not allow items to be initialized with quality > 50 (as per specification)
 - Does not allow items to be initialized with quality < 0 (as per specification)
 - Valid items defined in a set list - does not allow non-existent items (e.g. "unicorn hair") to be added.
+
+---
+
+## To Run from the Terminal:
+
+### Installation:
+- Clone this repository and navigate to root/ruby
+- `bundle install`
+
+### To run:
+- Can be run from any REPL
+  - e.g. in IRB: `irb -r "./lib/gilded_rose.rb"`
+
+#### Methods available:
+- `your_item_name = Item.new(name, sell_in, quality)`
+  --> creates a new item
+
+- `your_inn_name = GildedRose.new([your_item_name, your_second_item_name...])`
+  --> creates a new inn with an inventory consisting of the argument provided (inteded to be an array of Item instances)
+
+- `your_inn_name.update_products`
+  --> updates the sell_in and quality for each item in the inn's inventory as if one day has passed
+
+### To run tests
+- `rspec` (must be in root/ruby)
+- 99.41% test coverage
+- 21 unit tests for update_quality method, all pass
