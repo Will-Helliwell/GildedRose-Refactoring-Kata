@@ -95,6 +95,8 @@ Where the code functionality differs from the spec, I have prioritized preservin
   - it decreases by 1 when it there are 1 or more days left to sell (and quality > 0)
   - it decreases by 2 when sell_in has reached zero or below (and quality > 0)
 
+---
+
 ## Work Completed 
 
 ### 1 - Tests Added
@@ -138,6 +140,8 @@ Assumptions:
     - it never drops below zero
     - it decreases by 2 when it there are 1 or more days left to sell (and quality > 0)
     - it decreases by 4 when sell_in has reached zero or below (and quality > 0)
+
+---
 
 ## Functionality to Add in Future
 
