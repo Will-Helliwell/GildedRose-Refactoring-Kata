@@ -1,4 +1,4 @@
-require 'standard_item'
+require 'item_subclasses/standard_item'
 
 describe StandardItem do
 

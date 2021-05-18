@@ -1,4 +1,4 @@
-require 'sulfuras'
+require 'item_subclasses/sulfuras'
 
 describe Sulfuras do
 

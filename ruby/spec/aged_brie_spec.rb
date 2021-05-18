@@ -1,4 +1,4 @@
-require 'aged_brie'
+require 'item_subclasses/aged_brie'
 require 'gilded_rose'
 
 describe AgedBrie do

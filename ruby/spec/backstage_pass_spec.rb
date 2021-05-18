@@ -1,4 +1,4 @@
-require 'backstage_pass'
+require 'item_subclasses/backstage_pass'
 
 describe BackstagePass do
 

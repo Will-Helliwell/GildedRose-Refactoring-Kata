@@ -1,4 +1,4 @@
-require 'conjured'
+require 'item_subclasses/conjured'
 
 describe Conjured do
 
